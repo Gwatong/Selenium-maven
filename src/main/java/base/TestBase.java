@@ -3,6 +3,8 @@ package base;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.firefox.FirefoxOptions;
+import org.openqa.selenium.remote.DesiredCapabilities;
 import util.TestUtil;
 
 import java.io.FileInputStream;
@@ -11,7 +13,7 @@ import java.io.IOException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
 
-public class TestBase {
+public abstract class TestBase {
 
     public static WebDriver driver;
     public static Properties prop;
@@ -40,7 +42,12 @@ public class TestBase {
         else if(browserName.equals("firefox")) {
             System.setProperty("webdriver.gecko.driver",
                     System.getProperty("user.dir") + "/geckodrivers/geckodriver");
-            driver = new FirefoxDriver();
+            DesiredCapabilities capabilities = DesiredCapabilities.firefox();
+            capabilities.setCapability("marionette",true);
+            FirefoxOptions options = new FirefoxOptions();
+            options.setLegacy(true);
+            driver= new FirefoxDriver(capabilities);
+
         }
 
         driver.manage().window().maximize();
