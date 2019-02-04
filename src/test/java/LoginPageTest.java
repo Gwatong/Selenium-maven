@@ -7,39 +7,41 @@ import pages.HomePage;
 import pages.LoginPage;
 
 public class LoginPageTest extends TestBase {
+
     LoginPage loginPage;
     HomePage homePage;
 
 
-    public LoginPageTest(){
+    public LoginPageTest() {
         super();
     }
 
     @BeforeMethod
-    public void setUp(){
+    public void setUp() {
         initialize();
         loginPage = new LoginPage();
     }
 
     @Test(priority = 1)
-    public void loginPageTitleTest(){
-        String title = loginPage.validateLoginPageTitle();
+    public void loginPageTitleTest() {
+        String title = loginPage.getLoginPageTitle();
         Assert.assertEquals(title, "Log In ‹ Wordpress Demo Site at Demo.Center — WordPress");
     }
 
     @Test(priority = 2)
-    public void wordpressLogoImageTest(){
-        boolean flag = loginPage.validateWordpressIMAGE();
+    public void wordpressLogoImageTest() {
+        boolean flag = loginPage.validateWordpressImage();
         Assert.assertTrue(flag);
     }
 
     @Test(priority = 3)
-    public void loginTest(){
+    public void loginTest() {
         homePage = loginPage.login(prop.getProperty("username"), prop.getProperty("password"));
     }
 
     @AfterMethod
-    public void tearDown(){
+    public void tearDown() {
+        driver.close();
         driver.quit();
     }
 }
