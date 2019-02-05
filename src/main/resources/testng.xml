@@ -1,0 +1,22 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Wordpress test suites" verbose="1" >
+    <test name="Login test cases" >
+        <classes>
+            <class name="LoginPageTest" />
+        </classes>
+    </test>
+
+    <test name="Dashboard test cases">
+        <classes>
+            <class name="HomePageTest"/>
+        </classes>
+    </test>
+</suite>
+
+        Termin płatności: 05/02/2019
+        Razem do zapłaty: 1 345,00
+        Nr rachunku do wpłaty: 57 1090 0004 8519 0000 0000 0297
+        Odbiorca: ANL Najem spółka z o.o. sp. k.
+        Adres: Bliska 10/75, 03-804 Warszawa, Polska
+        Tytułem: Faktura 3/01/02/19
