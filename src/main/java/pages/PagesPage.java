@@ -16,6 +16,10 @@ public class PagesPage extends TestBase implements MenuSelector {
 
     }
 
+    public String getPagesPageTitle() {
+        return driver.getTitle();
+    }
+
     public PostsPage goToPostsPage() {
         menu.getPostsButton().click();
         return new PostsPage();

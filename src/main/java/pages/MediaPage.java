@@ -16,6 +16,10 @@ public class MediaPage extends TestBase implements MenuSelector {
 
     }
 
+    public String getMediaPageTitle() {
+        return driver.getTitle();
+    }
+
     public PostsPage goToPostsPage() {
         menu.getPostsButton().click();
         return new PostsPage();

@@ -16,6 +16,10 @@ public class YoutubePage extends TestBase implements MenuSelector {
 
     }
 
+    public String getYoutubePageTitle() {
+        return driver.getTitle();
+    }
+
     public PostsPage goToPostsPage() {
         menu.getPostsButton().click();
         return new PostsPage();

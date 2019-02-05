@@ -16,6 +16,10 @@ public class AppearancePage extends TestBase implements MenuSelector{
 
     }
 
+    public String getAppearancePageTitle() {
+        return driver.getTitle();
+    }
+
     public PostsPage goToPostsPage() {
         menu.getPostsButton().click();
         return new PostsPage();

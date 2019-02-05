@@ -16,6 +16,10 @@ public class CommentsPage extends TestBase implements MenuSelector {
 
     }
 
+    public String getCommentsPageTitle() {
+        return driver.getTitle();
+    }
+
     public PostsPage goToPostsPage() {
         menu.getPostsButton().click();
         return new PostsPage();

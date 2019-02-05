@@ -16,6 +16,10 @@ public class ToolsPage extends TestBase implements MenuSelector {
 
     }
 
+    public String getToolsPageTitle() {
+        return driver.getTitle();
+    }
+
     public PostsPage goToPostsPage() {
         menu.getPostsButton().click();
         return new PostsPage();
