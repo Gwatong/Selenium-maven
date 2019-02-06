@@ -24,6 +24,12 @@ public class LoginPage extends TestBase {
     @FindBy(xpath = "/html/body/div[1]/h1/a")
     WebElement wordpressLogo;
 
+    @FindBy(id = "rememberme")
+    WebElement rememberMeCheckbox;
+
+    @FindBy(className = "message")
+    WebElement messageSuccesPasswordRecovery;
+
 
     public LoginPage(){
         PageFactory.initElements(driver, this);
@@ -31,6 +37,14 @@ public class LoginPage extends TestBase {
 
 
 //    ACTIONS:
+    public void setRememberMeCheckbox(){
+        rememberMeCheckbox.click();
+    }
+
+    public boolean checkIfRemembermeCheckboxChecked(){
+        return rememberMeCheckbox.isSelected();
+    }
+
     public String getLoginPageTitle(){
         return driver.getTitle();
     }
@@ -45,6 +59,15 @@ public class LoginPage extends TestBase {
         loginBtn.click();
 
         return new HomePage();
+    }
+
+    public LostPasswordPage goToLostPasswordPage(){
+        lostPasswordButton.click();
+        return new LostPasswordPage();
+    }
+
+    public String getSuccessPasswordRecoveryMessage(){
+        return messageSuccesPasswordRecovery.getText();
     }
 
 }

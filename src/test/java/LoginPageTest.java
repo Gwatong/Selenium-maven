@@ -39,6 +39,13 @@ public class LoginPageTest extends TestBase {
         homePage = loginPage.login(prop.getProperty("username"), prop.getProperty("password"));
     }
 
+    @Test
+    public void checkboxTest(){
+        loginPage.setRememberMeCheckbox();
+        Assert.assertTrue(loginPage.checkIfRemembermeCheckboxChecked());
+    }
+
+
     @AfterMethod
     public void tearDown() {
         driver.close();
