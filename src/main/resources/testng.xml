@@ -1,15 +1,36 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Wordpress test suites" verbose="1" >
+<suite name="Wordpress test suites" parallel="false" thread-count="2" verbose="10">
     <test name="Login test cases" >
         <classes>
             <class name="LoginPageTest" />
         </classes>
     </test>
 
+    <test name="Recovery password test cases" >
+        <classes>
+            <class name="LostPasswordPageTest" />
+        </classes>
+    </test>
+
     <test name="Dashboard test cases">
         <classes>
             <class name="HomePageTest"/>
+        </classes>
+    </test>
+
+    <test name="All remaining tests" >
+        <classes>
+            <class name="AppearancePageTest" />
+            <class name="CommentsPageTest" />
+            <class name="MediaPageTest" />
+            <class name="PagesPageTest" />
+            <class name="PluginsPageTest" />
+            <class name="PostsPageTest" />
+            <class name="SettingsPageTest" />
+            <class name="ToolsPageTest" />
+            <class name="UsersPageTest" />
+            <class name="YoutubePageTest" />
         </classes>
     </test>
 </suite>
