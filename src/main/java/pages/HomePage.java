@@ -11,7 +11,7 @@ public class HomePage extends TestBase implements MenuSelector {
 
     MenuSelectItems menu;
 
-    @FindBy(xpath = "/html/body/div[1]/div[2]/div[2]/div[1]/div[4]/div[2]/div/div/div[2]/ul/li[3]/a")
+    @FindBy(linkText = "View your site")
     WebElement viewSiteButton;
 
     public HomePage() {
