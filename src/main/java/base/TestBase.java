@@ -5,7 +5,10 @@ import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.support.events.EventFiringWebDriver;
+import util.EventHandler;
 import util.TestUtil;
+import org.apache.log4j.Logger;
 
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -17,20 +20,31 @@ public abstract class TestBase {
 
     public static WebDriver driver;
     public static Properties prop;
+    public static Logger logger;
 
     public TestBase(){
+        setLogger();
+        loadProperties();
 
+    }
+
+    public void setLogger(){
+        logger = Logger.getLogger(this.getClass());
+    }
+
+    private static void loadProperties(){
         try {
             prop = new Properties();
             FileInputStream ip = new FileInputStream(
                     System.getProperty("user.dir") + "/src/main/config/config.properties");
             prop.load(ip);
         } catch (FileNotFoundException e){
+            logger.fatal("Configuration file not found", e);
             e.printStackTrace();
         }catch (IOException e){
+            logger.fatal("Failed reading from config properties", e);
             e.printStackTrace();
         }
-
     }
 
     public static void initialize(){
@@ -49,6 +63,10 @@ public abstract class TestBase {
             driver= new FirefoxDriver(capabilities);
 
         }
+        EventFiringWebDriver eventDriver = new EventFiringWebDriver(driver);
+        EventHandler handler = new EventHandler();
+        eventDriver.register(handler);
+        driver = eventDriver;
 
         driver.manage().window().maximize();
         driver.manage().deleteAllCookies();
@@ -56,6 +74,7 @@ public abstract class TestBase {
         driver.manage().timeouts().implicitlyWait(TestUtil.IMPLICIT_WAIT, TimeUnit.SECONDS);
 
         driver.get(prop.getProperty("url"));
+
     }
 
 }
