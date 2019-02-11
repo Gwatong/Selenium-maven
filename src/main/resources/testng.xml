@@ -1,6 +1,6 @@
 <!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
 
-<suite name="Wordpress test suites" parallel="false" thread-count="2" verbose="10">
+<suite name="Wordpress test suites" parallel="false" thread-count="1" verbose="10">
     <test name="Login test cases" >
         <classes>
             <class name="LoginPageTest" />
