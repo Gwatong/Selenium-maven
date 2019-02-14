@@ -1,6 +1,7 @@
 package base;
 
 import pages.*;
+import pages.PagesPage;
 
 public interface MenuSelector {
 

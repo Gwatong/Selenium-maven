@@ -3,6 +3,7 @@ package pages;
 import base.MenuSelectItems;
 import base.MenuSelector;
 import base.TestBase;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -14,6 +15,18 @@ public class HomePage extends TestBase implements MenuSelector {
     @FindBy(linkText = "View your site")
     WebElement viewSiteButton;
 
+    @FindBy(className = "handlediv")
+    WebElement quickDraft;
+
+    @FindBy(id = "title")
+    WebElement quickDraftTitle;
+
+    @FindBy(id = "content")
+    WebElement quickDraftContent;
+
+    @FindBy(id = "save-post")
+    WebElement saveQuickDraftButton;
+
     public HomePage() {
         menu = new MenuSelectItems();
         PageFactory.initElements(driver, this);
@@ -23,6 +36,36 @@ public class HomePage extends TestBase implements MenuSelector {
 
     public String getHomePageTitle() {
         return driver.getTitle();
+    }
+
+    public boolean checkIfQuickDraftExpanded(){
+        return Boolean.parseBoolean(quickDraft.getAttribute("aria-expanded"));
+    }
+
+    public boolean createAndVerifyDraft(String title, String content){
+        quickDraftTitle.sendKeys(title);
+        quickDraftContent.sendKeys(content);
+        saveQuickDraftButton.click();
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        WebElement element = driver.findElement(By.linkText(title));
+        return element.isDisplayed();
+    }
+
+
+    public void expandQuickDraft(){
+        if (!checkIfQuickDraftExpanded()){
+            quickDraft.click();
+        }
+    }
+
+    public void collapseQuickDraft(){
+        if(checkIfQuickDraftExpanded()){
+            quickDraft.click();
+        }
     }
 
     public void goToViewSite(){
