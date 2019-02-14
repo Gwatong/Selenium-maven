@@ -6,6 +6,7 @@ import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
+import org.testng.ITestResult;
 import util.EventHandler;
 import util.TestUtil;
 import org.apache.log4j.Logger;
@@ -75,6 +76,17 @@ public abstract class TestBase {
 
         driver.get(prop.getProperty("url"));
 
+    }
+
+    public void afterTestLogResult(ITestResult result){
+        if (result.getStatus() == ITestResult.FAILURE) {
+            logger.error(result.getName()+ " FAILED",result.getThrowable());
+
+        }else if(result.getStatus() == ITestResult.SUCCESS){
+            logger.info(result.getName()+ " PASSED");
+        }else if(result.getStatus() == ITestResult.SKIP){
+            logger.info(result.getName() + " SKIPPED");
+        }
     }
 
 }

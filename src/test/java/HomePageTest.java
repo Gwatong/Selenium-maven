@@ -30,6 +30,29 @@ public class HomePageTest extends TestBase {
     }
 
     @Test
+    public void quickDraftExpandedByDefaultTest(){
+        Assert.assertTrue(homePage.checkIfQuickDraftExpanded());
+    }
+
+    @Test
+    public void collapseQuickDraftTest(){
+        homePage.collapseQuickDraft();
+        Assert.assertFalse(homePage.checkIfQuickDraftExpanded());
+    }
+
+    @Test
+    public void expandQuickDraftTest(){
+        homePage.collapseQuickDraft();
+        homePage.expandQuickDraft();
+        Assert.assertTrue(homePage.checkIfQuickDraftExpanded());
+    }
+
+    @Test
+    public void createAndSaveQuickDraftTest(){
+        Assert.assertTrue(homePage.createAndVerifyDraft("Example title", "Some example content"));
+    }
+
+    @Test
     public void extendedMenuByDefaultTest() {
         Assert.assertTrue(homePage.verifyIfMenuIsExpanded());
     }
@@ -42,15 +65,7 @@ public class HomePageTest extends TestBase {
 
     @AfterMethod
     public void tearDown(ITestResult result) {
-        if (result.getStatus() == ITestResult.FAILURE) {
-            logger.error(result.getName()+ " FAILED",result.getThrowable());
-
-        }else if(result.getStatus() == ITestResult.SUCCESS){
-            logger.info(result.getName()+ " PASSED");
-        }else if(result.getStatus() == ITestResult.SKIP){
-            logger.info(result.getName() + " SKIPPED");
-        }
-
+        afterTestLogResult(result);
         driver.close();
         driver.quit();
     }

@@ -51,15 +51,7 @@ public class LoginPageTest extends TestBase {
 
     @AfterMethod
     public void tearDown(ITestResult result) {
-        if (result.getStatus() == ITestResult.FAILURE) {
-            logger.error(result.getName()+ " FAILED",result.getThrowable());
-
-        }else if(result.getStatus() == ITestResult.SUCCESS){
-            logger.info(result.getName()+ " PASSED");
-        }else if(result.getStatus() == ITestResult.SKIP){
-            logger.info(result.getName() + " SKIPPED");
-        }
-
+        afterTestLogResult(result);
         driver.close();
         driver.quit();
     }
