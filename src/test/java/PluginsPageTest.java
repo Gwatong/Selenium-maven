@@ -8,6 +8,8 @@ import pages.HomePage;
 import pages.LoginPage;
 import pages.PluginsPage;
 
+import java.net.MalformedURLException;
+
 public class PluginsPageTest extends TestBase {
 
     LoginPage loginPage;
@@ -20,7 +22,11 @@ public class PluginsPageTest extends TestBase {
 
     @BeforeMethod
     public void setUp() {
-        initialize();
+        try {
+            initialize();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         loginPage = new LoginPage();
         homePage = loginPage.login(prop.getProperty("username"), prop.getProperty("password"));
         pluginsPage = homePage.goToPluginsPage();

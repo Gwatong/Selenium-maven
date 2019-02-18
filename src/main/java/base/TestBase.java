@@ -1,10 +1,12 @@
 package base;
 
+import org.openqa.selenium.Capabilities;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.openqa.selenium.support.events.EventFiringWebDriver;
 import org.testng.ITestResult;
 import util.EventHandler;
@@ -14,8 +16,10 @@ import org.apache.log4j.Logger;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.util.Properties;
 import java.util.concurrent.TimeUnit;
+import java.net.URL;
 
 public abstract class TestBase {
 
@@ -48,11 +52,19 @@ public abstract class TestBase {
         }
     }
 
-    public static void initialize(){
+    public static void initialize() throws MalformedURLException {
         String browserName = prop.getProperty("browser");
 
         if(browserName.equals("chrome")){
-            driver = new ChromeDriver();
+            Capabilities chromeCapabilities = DesiredCapabilities.chrome();
+//            driver = new ChromeDriver();
+            try {
+                    driver = new RemoteWebDriver(
+                        new URL("http://hub:4444/wd/hub"),
+                        DesiredCapabilities.chrome());
+                } catch (MalformedURLException e) {
+                    logger.fatal(e);
+            }
         }
         else if(browserName.equals("firefox")) {
             System.setProperty("webdriver.gecko.driver",

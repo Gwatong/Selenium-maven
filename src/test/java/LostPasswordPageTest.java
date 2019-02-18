@@ -7,6 +7,8 @@ import org.testng.annotations.Test;
 import pages.LoginPage;
 import pages.LostPasswordPage;
 
+import java.net.MalformedURLException;
+
 public class LostPasswordPageTest extends TestBase {
 
     LoginPage loginPage;
@@ -18,7 +20,11 @@ public class LostPasswordPageTest extends TestBase {
 
     @BeforeMethod
     public void setUp(){
-        initialize();
+        try {
+            initialize();
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
         loginPage = new LoginPage();
         lostPasswordPage = loginPage.goToLostPasswordPage();
     }

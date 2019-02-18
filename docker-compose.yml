@@ -1,0 +1,42 @@
+version: '2'
+services:
+#  firefox:
+#    image: selenium/node-firefox:3.14.0-gallium
+#    volumes:
+#      - /dev/shm:/dev/shm
+#    depends_on:
+#      - hub
+#    environment:
+#      HUB_HOST: hub
+
+  chrome:
+    image: selenium/node-chrome:3.14.0-gallium
+    volumes:
+      - /dev/shm:/dev/shm
+    depends_on:
+      - hub
+    environment:
+      - HUB_HOST:hub
+       - SCREEN_WIDTH:1920
+       - SCREEN_HEIGHT:2000
+       - JAVA_OPTS=-Xmx3g
+       - DBUS_SESSION_BUS_ADDRESS=/dev/null
+       - TZ=Europe/Warsaw
+
+
+  hub:
+    image: selenium/hub:3.14.0-gallium
+    ports:
+      - "4444:4444"
+
+  selenium:
+      container_name: selenium-test
+      build: .
+      depends_on:
+        - hub
+      links:
+        - hub
+      command:
+        - "mvn -X test"
+#      volumes:
+#        - ./screenshots:/tests/screenshots
